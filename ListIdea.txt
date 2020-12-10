@@ -1,0 +1,265 @@
+from LispParser import parser
+def read_input():
+  result = ''
+  while True:
+    data = input('lisp: ').strip()
+    if ';' in data:
+      i = data.index(';')
+    a  result += data[0:i+1]
+      break
+    else:
+      result += data + ' '
+  return result
+
+def getIdentifiers(ast, temp):
+    if ast == 'lists empty guy':
+        return ast
+    elif ast==[]:
+        return ast
+    elif [] in ast:
+      return temp + [ast[0][1]]
+    elif len(ast) == 1:
+        return getIdentifiers(ast[0], temp)
+    else:
+        temp+=[ast[0][1]]
+        return getIdentifiers(ast[1:len(ast)],temp)
+
+def evalList(ast,message):
+    if ast ==[]:
+        return ast
+    elif ast[0][0] == 'num':
+        print(ast, 'num')
+        return ast
+    elif ast[0][0] == 'var':
+        return ast
+    elif ast[0] == 'CDR':
+        pop = evalList(ast[1], message)
+        if pop==[]:
+            message='bad'
+        return 'lists empty guy' if message == 'bad' else pop[1]
+    elif ast[0] == 'CONS':
+        next = evalNum(ast[1][0], message)
+        edit = [['num',next]] + [ast[1][1:]]
+        return evalList(edit,message)
+    elif ast[0] == 'LET':
+        '''
+            call sub
+        '''
+'''
+Evaluates a sequence of expressions in list expressions
+by calling evalNums
+'''
+def seq(ast):
+    if ast == []:
+        return ast
+    else:
+        return evalNum(ast[1:], 'good')
+
+
+'''
+    Error check message between left and right recursion
+'''
+def errorCheck(left, right):
+    message='good'
+    if left == 'CAR of empty list' or right =='CAR of empty list':
+        message = 'bad'
+    return message
+
+
+
+def evalNum(ast, message):
+    if ast ==[]:
+        return ast
+    elif ast[0] == 'LET':
+        '''
+            call sub
+        '''
+    elif ast[0] == 'num':
+        return ast[1]
+    elif ast[0] == 'var':
+        return ast[1]
+    elif ast[0] == '+':
+        left = evalNum(ast[1], message)
+        right = evalNum(ast[2],message)
+        message = errorCheck(left,right)
+        return 'CAR of empty list' if message == 'bad' else left+ right
+    elif ast[0] == '-':
+        message = errorCheck(left, right)
+        left = evalNum(ast[1],message)
+        right = evalNum(ast[2],message)
+        return 'CAR of empty list' if message == 'bad' else left - right
+    elif ast[0] == '*':
+        message = errorCheck(left,right)
+        left = evalNum(ast[1],message)
+        right = evalNum(ast[2],message)
+        return 'CAR of empty list' if message == 'bad' else left * right
+    elif ast[0] == '/':
+        message = errorCheck(left,right)
+        left = evalNum(ast[1],message)
+        right = evalNum(ast[2],message)
+        return 'CAR of empty list' if message == 'bad' else left / right
+    elif ast[0] == 'CAR':
+        s=evalList(ast[1], 'good')
+        if s ==[] or s =='lists empty guy':
+            message = 'bad'
+        return 'CAR of empty list' if message == 'bad' else s[0][1]
+
+def main():
+  while True:
+    data = read_input()
+    if data == 'exit;':
+      break
+    try:
+      ast = parser.parse(data)
+      if ast[0] == 'list':
+          expression = evalList(ast[1],'good')
+          print('CDR of empty list Error!' if expression == 'lists empty guy' else tuple( getIdentifiers(expression,[]) ) )
+      else:
+          print(evalNum(ast[1],'good'))
+
+    except Exception as inst:
+      print(inst.args[0])
+      continue
+
+main()
+;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+UPDATE FROM ABOVE
+
+;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;
+
+from LispParser import parser
+def read_input():
+  result = ''
+  while True:
+    data = input('lisp: ').strip()
+    if ';' in data:
+      i = data.index(';')
+      result += data[0:i+1]
+      break
+    else:
+      result += data + ' '
+  return result
+
+def getIdentifiers(ast, temp):
+    if ast == 'lists empty guy':
+        return ast
+    elif ast==[]:
+        return ast
+    elif [] in ast:
+      return temp + [ast[0][1]]
+    elif len(ast) == 1:
+        return getIdentifiers(ast[0], temp)
+    else:
+        temp+=[ast[0][1]]
+        return getIdentifiers(ast[1:len(ast)],temp)
+
+def evalList(ast,message):
+    print('ast', ast)
+    if ast ==[]:
+        return ast
+    elif ast[0][0] == 'num':
+        print('in num', ast)
+        return ast
+    elif ast[0][0] == 'var':
+        print(ast,'V')
+        return ast
+    elif ast[0] == 'CDR':
+        pop = evalList(ast[1], message)
+        if pop==[]:
+            message='bad'
+        return 'lists empty guy' if message == 'bad' else pop[1]
+    elif ast[0] == 'CONS':
+        next = evalNum(ast[1][0], message)
+        edit = [['num',next]] + [ast[1][1:]]
+        print('cons',ast)
+        return evalList(edit,message)
+    elif ast[0] == 'LET':
+        '''
+            call sub
+        '''
+    else:
+        print(ast[0], 'seq')
+        s = seq(ast[0])
+        return evalList(s+ast[1][1:], message)
+'''
+Evaluates a sequence of expressions in list expressions
+by calling evalNums
+'''
+def seq(ast):
+    if ast == []:
+        return ast
+    value = evalNum(ast, 'good')
+    return [['num', value]]
+
+
+'''
+    Error check message between left and right recursion
+'''
+def errorCheck(left, right):
+    message='good'
+    if left == 'CAR of empty list' or right =='CAR of empty list':
+        message = 'bad'
+    return message
+
+
+
+def evalNum(ast, message):
+    print('in EN', ast)
+    if ast ==[]:
+        return ast
+    elif ast[0] == 'LET':
+        '''
+            call sub
+        '''
+    elif ast[0] == 'num':
+        return ast[1]
+    elif ast[0] == 'var':
+        return ast[1]
+    elif ast[0] == '+':
+        left = evalNum(ast[1], message)
+        right = evalNum(ast[2],message)
+        message = errorCheck(left,right)
+        return 'CAR of empty list' if message == 'bad' else left+ right
+    elif ast[0] == '-':
+        message = errorCheck(left, right)
+        left = evalNum(ast[1],message)
+        right = evalNum(ast[2],message)
+        return 'CAR of empty list' if message == 'bad' else left - right
+    elif ast[0] == '*':
+        message = errorCheck(left,right)
+        left = evalNum(ast[1],message)
+        right = evalNum(ast[2],message)
+        return 'CAR of empty list' if message == 'bad' else left * right
+    elif ast[0] == '/':
+        message = errorCheck(left,right)
+        left = evalNum(ast[1],message)
+        right = evalNum(ast[2],message)
+        return 'CAR of empty list' if message == 'bad' else left / right
+    elif ast[0] == 'CAR':
+        s=evalList(ast[1], 'good')
+        if s ==[] or s =='lists empty guy':
+            message = 'bad'
+        return 'CAR of empty list' if message == 'bad' else s[0][1]
+
+def main():
+  while True:
+    data = read_input()
+    if data == 'exit;':
+      break
+    try:
+      ast = parser.parse(data)
+      if ast[0] == 'list':
+          expression = evalList(ast[1],'good')
+          print('CDR of empty list Error!' if expression == 'lists empty guy' else tuple( expression ) )
+      else:
+          print(evalNum(ast[1],'good'))
+
+    except Exception as inst:
+      print(inst.args[0])
+      continue
+
+main()

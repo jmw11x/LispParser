@@ -1,0 +1,684 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> lispStart
+Rule 1     lispStart -> lisp SEMI
+Rule 2     lispStart -> list SEMI
+Rule 3     lisp -> INT
+Rule 4     lisp -> VAR
+Rule 5     lisp -> LPAREN PLUS lisp lisp RPAREN
+Rule 6     lisp -> LPAREN MINUS lisp lisp RPAREN
+Rule 7     lisp -> LPAREN TIMES lisp lisp RPAREN
+Rule 8     lisp -> LPAREN DIV lisp lisp RPAREN
+Rule 9     lisp -> LPAREN CAR list RPAREN
+Rule 10    lisp -> LPAREN LET LPAREN varlist RPAREN lisp RPAREN
+Rule 11    varlist -> LPAREN VAR lisp RPAREN
+Rule 12    varlist -> LPAREN VAR lisp RPAREN varlist
+Rule 13    list -> LPAREN CDR list RPAREN
+Rule 14    list -> LPAREN seq RPAREN
+Rule 15    list -> LPAREN CONS lisp list RPAREN
+Rule 16    seq -> <empty>
+Rule 17    seq -> lisp seq
+
+Terminals, with rules where they appear
+
+CAR                  : 9
+CDR                  : 13
+CONS                 : 15
+DIV                  : 8
+INT                  : 3
+LET                  : 10
+LPAREN               : 5 6 7 8 9 10 10 11 12 13 14 15
+MINUS                : 6
+PLUS                 : 5
+RPAREN               : 5 6 7 8 9 10 10 11 12 13 14 15
+SEMI                 : 1 2
+TIMES                : 7
+VAR                  : 4 11 12
+error                : 
+
+Nonterminals, with rules where they appear
+
+lisp                 : 1 5 5 6 6 7 7 8 8 10 11 12 15 17
+lispStart            : 0
+list                 : 2 9 13 15
+seq                  : 14 17
+varlist              : 10 12
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . lispStart
+    (1) lispStart -> . lisp SEMI
+    (2) lispStart -> . list SEMI
+    (3) lisp -> . INT
+    (4) lisp -> . VAR
+    (5) lisp -> . LPAREN PLUS lisp lisp RPAREN
+    (6) lisp -> . LPAREN MINUS lisp lisp RPAREN
+    (7) lisp -> . LPAREN TIMES lisp lisp RPAREN
+    (8) lisp -> . LPAREN DIV lisp lisp RPAREN
+    (9) lisp -> . LPAREN CAR list RPAREN
+    (10) lisp -> . LPAREN LET LPAREN varlist RPAREN lisp RPAREN
+    (13) list -> . LPAREN CDR list RPAREN
+    (14) list -> . LPAREN seq RPAREN
+    (15) list -> . LPAREN CONS lisp list RPAREN
+
+    INT             shift and go to state 4
+    VAR             shift and go to state 5
+    LPAREN          shift and go to state 6
+
+    lispStart                      shift and go to state 1
+    lisp                           shift and go to state 2
+    list                           shift and go to state 3
+
+state 1
+
+    (0) S' -> lispStart .
+
+
+
+state 2
+
+    (1) lispStart -> lisp . SEMI
+
+    SEMI            shift and go to state 7
+
+
+state 3
+
+    (2) lispStart -> list . SEMI
+
+    SEMI            shift and go to state 8
+
+
+state 4
+
+    (3) lisp -> INT .
+
+    SEMI            reduce using rule 3 (lisp -> INT .)
+    INT             reduce using rule 3 (lisp -> INT .)
+    VAR             reduce using rule 3 (lisp -> INT .)
+    LPAREN          reduce using rule 3 (lisp -> INT .)
+    RPAREN          reduce using rule 3 (lisp -> INT .)
+
+
+state 5
+
+    (4) lisp -> VAR .
+
+    SEMI            reduce using rule 4 (lisp -> VAR .)
+    INT             reduce using rule 4 (lisp -> VAR .)
+    VAR             reduce using rule 4 (lisp -> VAR .)
+    LPAREN          reduce using rule 4 (lisp -> VAR .)
+    RPAREN          reduce using rule 4 (lisp -> VAR .)
+
+
+state 6
+
+    (5) lisp -> LPAREN . PLUS lisp lisp RPAREN
+    (6) lisp -> LPAREN . MINUS lisp lisp RPAREN
+    (7) lisp -> LPAREN . TIMES lisp lisp RPAREN
+    (8) lisp -> LPAREN . DIV lisp lisp RPAREN
+    (9) lisp -> LPAREN . CAR list RPAREN
+    (10) lisp -> LPAREN . LET LPAREN varlist RPAREN lisp RPAREN
+    (13) list -> LPAREN . CDR list RPAREN
+    (14) list -> LPAREN . seq RPAREN
+    (15) list -> LPAREN . CONS lisp list RPAREN
+    (16) seq -> .
+    (17) seq -> . lisp seq
+    (3) lisp -> . INT
+    (4) lisp -> . VAR
+    (5) lisp -> . LPAREN PLUS lisp lisp RPAREN
+    (6) lisp -> . LPAREN MINUS lisp lisp RPAREN
+    (7) lisp -> . LPAREN TIMES lisp lisp RPAREN
+    (8) lisp -> . LPAREN DIV lisp lisp RPAREN
+    (9) lisp -> . LPAREN CAR list RPAREN
+    (10) lisp -> . LPAREN LET LPAREN varlist RPAREN lisp RPAREN
+
+    PLUS            shift and go to state 10
+    MINUS           shift and go to state 12
+    TIMES           shift and go to state 13
+    DIV             shift and go to state 14
+    CAR             shift and go to state 15
+    LET             shift and go to state 16
+    CDR             shift and go to state 17
+    CONS            shift and go to state 19
+    RPAREN          reduce using rule 16 (seq -> .)
+    INT             shift and go to state 4
+    VAR             shift and go to state 5
+    LPAREN          shift and go to state 9
+
+    lisp                           shift and go to state 11
+    seq                            shift and go to state 18
+
+state 7
+
+    (1) lispStart -> lisp SEMI .
+
+    $end            reduce using rule 1 (lispStart -> lisp SEMI .)
+
+
+state 8
+
+    (2) lispStart -> list SEMI .
+
+    $end            reduce using rule 2 (lispStart -> list SEMI .)
+
+
+state 9
+
+    (5) lisp -> LPAREN . PLUS lisp lisp RPAREN
+    (6) lisp -> LPAREN . MINUS lisp lisp RPAREN
+    (7) lisp -> LPAREN . TIMES lisp lisp RPAREN
+    (8) lisp -> LPAREN . DIV lisp lisp RPAREN
+    (9) lisp -> LPAREN . CAR list RPAREN
+    (10) lisp -> LPAREN . LET LPAREN varlist RPAREN lisp RPAREN
+
+    PLUS            shift and go to state 10
+    MINUS           shift and go to state 12
+    TIMES           shift and go to state 13
+    DIV             shift and go to state 14
+    CAR             shift and go to state 15
+    LET             shift and go to state 16
+
+
+state 10
+
+    (5) lisp -> LPAREN PLUS . lisp lisp RPAREN
+    (3) lisp -> . INT
+    (4) lisp -> . VAR
+    (5) lisp -> . LPAREN PLUS lisp lisp RPAREN
+    (6) lisp -> . LPAREN MINUS lisp lisp RPAREN
+    (7) lisp -> . LPAREN TIMES lisp lisp RPAREN
+    (8) lisp -> . LPAREN DIV lisp lisp RPAREN
+    (9) lisp -> . LPAREN CAR list RPAREN
+    (10) lisp -> . LPAREN LET LPAREN varlist RPAREN lisp RPAREN
+
+    INT             shift and go to state 4
+    VAR             shift and go to state 5
+    LPAREN          shift and go to state 9
+
+    lisp                           shift and go to state 20
+
+state 11
+
+    (17) seq -> lisp . seq
+    (16) seq -> .
+    (17) seq -> . lisp seq
+    (3) lisp -> . INT
+    (4) lisp -> . VAR
+    (5) lisp -> . LPAREN PLUS lisp lisp RPAREN
+    (6) lisp -> . LPAREN MINUS lisp lisp RPAREN
+    (7) lisp -> . LPAREN TIMES lisp lisp RPAREN
+    (8) lisp -> . LPAREN DIV lisp lisp RPAREN
+    (9) lisp -> . LPAREN CAR list RPAREN
+    (10) lisp -> . LPAREN LET LPAREN varlist RPAREN lisp RPAREN
+
+    RPAREN          reduce using rule 16 (seq -> .)
+    INT             shift and go to state 4
+    VAR             shift and go to state 5
+    LPAREN          shift and go to state 9
+
+    lisp                           shift and go to state 11
+    seq                            shift and go to state 21
+
+state 12
+
+    (6) lisp -> LPAREN MINUS . lisp lisp RPAREN
+    (3) lisp -> . INT
+    (4) lisp -> . VAR
+    (5) lisp -> . LPAREN PLUS lisp lisp RPAREN
+    (6) lisp -> . LPAREN MINUS lisp lisp RPAREN
+    (7) lisp -> . LPAREN TIMES lisp lisp RPAREN
+    (8) lisp -> . LPAREN DIV lisp lisp RPAREN
+    (9) lisp -> . LPAREN CAR list RPAREN
+    (10) lisp -> . LPAREN LET LPAREN varlist RPAREN lisp RPAREN
+
+    INT             shift and go to state 4
+    VAR             shift and go to state 5
+    LPAREN          shift and go to state 9
+
+    lisp                           shift and go to state 22
+
+state 13
+
+    (7) lisp -> LPAREN TIMES . lisp lisp RPAREN
+    (3) lisp -> . INT
+    (4) lisp -> . VAR
+    (5) lisp -> . LPAREN PLUS lisp lisp RPAREN
+    (6) lisp -> . LPAREN MINUS lisp lisp RPAREN
+    (7) lisp -> . LPAREN TIMES lisp lisp RPAREN
+    (8) lisp -> . LPAREN DIV lisp lisp RPAREN
+    (9) lisp -> . LPAREN CAR list RPAREN
+    (10) lisp -> . LPAREN LET LPAREN varlist RPAREN lisp RPAREN
+
+    INT             shift and go to state 4
+    VAR             shift and go to state 5
+    LPAREN          shift and go to state 9
+
+    lisp                           shift and go to state 23
+
+state 14
+
+    (8) lisp -> LPAREN DIV . lisp lisp RPAREN
+    (3) lisp -> . INT
+    (4) lisp -> . VAR
+    (5) lisp -> . LPAREN PLUS lisp lisp RPAREN
+    (6) lisp -> . LPAREN MINUS lisp lisp RPAREN
+    (7) lisp -> . LPAREN TIMES lisp lisp RPAREN
+    (8) lisp -> . LPAREN DIV lisp lisp RPAREN
+    (9) lisp -> . LPAREN CAR list RPAREN
+    (10) lisp -> . LPAREN LET LPAREN varlist RPAREN lisp RPAREN
+
+    INT             shift and go to state 4
+    VAR             shift and go to state 5
+    LPAREN          shift and go to state 9
+
+    lisp                           shift and go to state 24
+
+state 15
+
+    (9) lisp -> LPAREN CAR . list RPAREN
+    (13) list -> . LPAREN CDR list RPAREN
+    (14) list -> . LPAREN seq RPAREN
+    (15) list -> . LPAREN CONS lisp list RPAREN
+
+    LPAREN          shift and go to state 25
+
+    list                           shift and go to state 26
+
+state 16
+
+    (10) lisp -> LPAREN LET . LPAREN varlist RPAREN lisp RPAREN
+
+    LPAREN          shift and go to state 27
+
+
+state 17
+
+    (13) list -> LPAREN CDR . list RPAREN
+    (13) list -> . LPAREN CDR list RPAREN
+    (14) list -> . LPAREN seq RPAREN
+    (15) list -> . LPAREN CONS lisp list RPAREN
+
+    LPAREN          shift and go to state 25
+
+    list                           shift and go to state 28
+
+state 18
+
+    (14) list -> LPAREN seq . RPAREN
+
+    RPAREN          shift and go to state 29
+
+
+state 19
+
+    (15) list -> LPAREN CONS . lisp list RPAREN
+    (3) lisp -> . INT
+    (4) lisp -> . VAR
+    (5) lisp -> . LPAREN PLUS lisp lisp RPAREN
+    (6) lisp -> . LPAREN MINUS lisp lisp RPAREN
+    (7) lisp -> . LPAREN TIMES lisp lisp RPAREN
+    (8) lisp -> . LPAREN DIV lisp lisp RPAREN
+    (9) lisp -> . LPAREN CAR list RPAREN
+    (10) lisp -> . LPAREN LET LPAREN varlist RPAREN lisp RPAREN
+
+    INT             shift and go to state 4
+    VAR             shift and go to state 5
+    LPAREN          shift and go to state 9
+
+    lisp                           shift and go to state 30
+
+state 20
+
+    (5) lisp -> LPAREN PLUS lisp . lisp RPAREN
+    (3) lisp -> . INT
+    (4) lisp -> . VAR
+    (5) lisp -> . LPAREN PLUS lisp lisp RPAREN
+    (6) lisp -> . LPAREN MINUS lisp lisp RPAREN
+    (7) lisp -> . LPAREN TIMES lisp lisp RPAREN
+    (8) lisp -> . LPAREN DIV lisp lisp RPAREN
+    (9) lisp -> . LPAREN CAR list RPAREN
+    (10) lisp -> . LPAREN LET LPAREN varlist RPAREN lisp RPAREN
+
+    INT             shift and go to state 4
+    VAR             shift and go to state 5
+    LPAREN          shift and go to state 9
+
+    lisp                           shift and go to state 31
+
+state 21
+
+    (17) seq -> lisp seq .
+
+    RPAREN          reduce using rule 17 (seq -> lisp seq .)
+
+
+state 22
+
+    (6) lisp -> LPAREN MINUS lisp . lisp RPAREN
+    (3) lisp -> . INT
+    (4) lisp -> . VAR
+    (5) lisp -> . LPAREN PLUS lisp lisp RPAREN
+    (6) lisp -> . LPAREN MINUS lisp lisp RPAREN
+    (7) lisp -> . LPAREN TIMES lisp lisp RPAREN
+    (8) lisp -> . LPAREN DIV lisp lisp RPAREN
+    (9) lisp -> . LPAREN CAR list RPAREN
+    (10) lisp -> . LPAREN LET LPAREN varlist RPAREN lisp RPAREN
+
+    INT             shift and go to state 4
+    VAR             shift and go to state 5
+    LPAREN          shift and go to state 9
+
+    lisp                           shift and go to state 32
+
+state 23
+
+    (7) lisp -> LPAREN TIMES lisp . lisp RPAREN
+    (3) lisp -> . INT
+    (4) lisp -> . VAR
+    (5) lisp -> . LPAREN PLUS lisp lisp RPAREN
+    (6) lisp -> . LPAREN MINUS lisp lisp RPAREN
+    (7) lisp -> . LPAREN TIMES lisp lisp RPAREN
+    (8) lisp -> . LPAREN DIV lisp lisp RPAREN
+    (9) lisp -> . LPAREN CAR list RPAREN
+    (10) lisp -> . LPAREN LET LPAREN varlist RPAREN lisp RPAREN
+
+    INT             shift and go to state 4
+    VAR             shift and go to state 5
+    LPAREN          shift and go to state 9
+
+    lisp                           shift and go to state 33
+
+state 24
+
+    (8) lisp -> LPAREN DIV lisp . lisp RPAREN
+    (3) lisp -> . INT
+    (4) lisp -> . VAR
+    (5) lisp -> . LPAREN PLUS lisp lisp RPAREN
+    (6) lisp -> . LPAREN MINUS lisp lisp RPAREN
+    (7) lisp -> . LPAREN TIMES lisp lisp RPAREN
+    (8) lisp -> . LPAREN DIV lisp lisp RPAREN
+    (9) lisp -> . LPAREN CAR list RPAREN
+    (10) lisp -> . LPAREN LET LPAREN varlist RPAREN lisp RPAREN
+
+    INT             shift and go to state 4
+    VAR             shift and go to state 5
+    LPAREN          shift and go to state 9
+
+    lisp                           shift and go to state 34
+
+state 25
+
+    (13) list -> LPAREN . CDR list RPAREN
+    (14) list -> LPAREN . seq RPAREN
+    (15) list -> LPAREN . CONS lisp list RPAREN
+    (16) seq -> .
+    (17) seq -> . lisp seq
+    (3) lisp -> . INT
+    (4) lisp -> . VAR
+    (5) lisp -> . LPAREN PLUS lisp lisp RPAREN
+    (6) lisp -> . LPAREN MINUS lisp lisp RPAREN
+    (7) lisp -> . LPAREN TIMES lisp lisp RPAREN
+    (8) lisp -> . LPAREN DIV lisp lisp RPAREN
+    (9) lisp -> . LPAREN CAR list RPAREN
+    (10) lisp -> . LPAREN LET LPAREN varlist RPAREN lisp RPAREN
+
+    CDR             shift and go to state 17
+    CONS            shift and go to state 19
+    RPAREN          reduce using rule 16 (seq -> .)
+    INT             shift and go to state 4
+    VAR             shift and go to state 5
+    LPAREN          shift and go to state 9
+
+    seq                            shift and go to state 18
+    lisp                           shift and go to state 11
+
+state 26
+
+    (9) lisp -> LPAREN CAR list . RPAREN
+
+    RPAREN          shift and go to state 35
+
+
+state 27
+
+    (10) lisp -> LPAREN LET LPAREN . varlist RPAREN lisp RPAREN
+    (11) varlist -> . LPAREN VAR lisp RPAREN
+    (12) varlist -> . LPAREN VAR lisp RPAREN varlist
+
+    LPAREN          shift and go to state 36
+
+    varlist                        shift and go to state 37
+
+state 28
+
+    (13) list -> LPAREN CDR list . RPAREN
+
+    RPAREN          shift and go to state 38
+
+
+state 29
+
+    (14) list -> LPAREN seq RPAREN .
+
+    SEMI            reduce using rule 14 (list -> LPAREN seq RPAREN .)
+    RPAREN          reduce using rule 14 (list -> LPAREN seq RPAREN .)
+
+
+state 30
+
+    (15) list -> LPAREN CONS lisp . list RPAREN
+    (13) list -> . LPAREN CDR list RPAREN
+    (14) list -> . LPAREN seq RPAREN
+    (15) list -> . LPAREN CONS lisp list RPAREN
+
+    LPAREN          shift and go to state 25
+
+    list                           shift and go to state 39
+
+state 31
+
+    (5) lisp -> LPAREN PLUS lisp lisp . RPAREN
+
+    RPAREN          shift and go to state 40
+
+
+state 32
+
+    (6) lisp -> LPAREN MINUS lisp lisp . RPAREN
+
+    RPAREN          shift and go to state 41
+
+
+state 33
+
+    (7) lisp -> LPAREN TIMES lisp lisp . RPAREN
+
+    RPAREN          shift and go to state 42
+
+
+state 34
+
+    (8) lisp -> LPAREN DIV lisp lisp . RPAREN
+
+    RPAREN          shift and go to state 43
+
+
+state 35
+
+    (9) lisp -> LPAREN CAR list RPAREN .
+
+    SEMI            reduce using rule 9 (lisp -> LPAREN CAR list RPAREN .)
+    INT             reduce using rule 9 (lisp -> LPAREN CAR list RPAREN .)
+    VAR             reduce using rule 9 (lisp -> LPAREN CAR list RPAREN .)
+    LPAREN          reduce using rule 9 (lisp -> LPAREN CAR list RPAREN .)
+    RPAREN          reduce using rule 9 (lisp -> LPAREN CAR list RPAREN .)
+
+
+state 36
+
+    (11) varlist -> LPAREN . VAR lisp RPAREN
+    (12) varlist -> LPAREN . VAR lisp RPAREN varlist
+
+    VAR             shift and go to state 44
+
+
+state 37
+
+    (10) lisp -> LPAREN LET LPAREN varlist . RPAREN lisp RPAREN
+
+    RPAREN          shift and go to state 45
+
+
+state 38
+
+    (13) list -> LPAREN CDR list RPAREN .
+
+    SEMI            reduce using rule 13 (list -> LPAREN CDR list RPAREN .)
+    RPAREN          reduce using rule 13 (list -> LPAREN CDR list RPAREN .)
+
+
+state 39
+
+    (15) list -> LPAREN CONS lisp list . RPAREN
+
+    RPAREN          shift and go to state 46
+
+
+state 40
+
+    (5) lisp -> LPAREN PLUS lisp lisp RPAREN .
+
+    SEMI            reduce using rule 5 (lisp -> LPAREN PLUS lisp lisp RPAREN .)
+    INT             reduce using rule 5 (lisp -> LPAREN PLUS lisp lisp RPAREN .)
+    VAR             reduce using rule 5 (lisp -> LPAREN PLUS lisp lisp RPAREN .)
+    LPAREN          reduce using rule 5 (lisp -> LPAREN PLUS lisp lisp RPAREN .)
+    RPAREN          reduce using rule 5 (lisp -> LPAREN PLUS lisp lisp RPAREN .)
+
+
+state 41
+
+    (6) lisp -> LPAREN MINUS lisp lisp RPAREN .
+
+    SEMI            reduce using rule 6 (lisp -> LPAREN MINUS lisp lisp RPAREN .)
+    INT             reduce using rule 6 (lisp -> LPAREN MINUS lisp lisp RPAREN .)
+    VAR             reduce using rule 6 (lisp -> LPAREN MINUS lisp lisp RPAREN .)
+    LPAREN          reduce using rule 6 (lisp -> LPAREN MINUS lisp lisp RPAREN .)
+    RPAREN          reduce using rule 6 (lisp -> LPAREN MINUS lisp lisp RPAREN .)
+
+
+state 42
+
+    (7) lisp -> LPAREN TIMES lisp lisp RPAREN .
+
+    SEMI            reduce using rule 7 (lisp -> LPAREN TIMES lisp lisp RPAREN .)
+    INT             reduce using rule 7 (lisp -> LPAREN TIMES lisp lisp RPAREN .)
+    VAR             reduce using rule 7 (lisp -> LPAREN TIMES lisp lisp RPAREN .)
+    LPAREN          reduce using rule 7 (lisp -> LPAREN TIMES lisp lisp RPAREN .)
+    RPAREN          reduce using rule 7 (lisp -> LPAREN TIMES lisp lisp RPAREN .)
+
+
+state 43
+
+    (8) lisp -> LPAREN DIV lisp lisp RPAREN .
+
+    SEMI            reduce using rule 8 (lisp -> LPAREN DIV lisp lisp RPAREN .)
+    INT             reduce using rule 8 (lisp -> LPAREN DIV lisp lisp RPAREN .)
+    VAR             reduce using rule 8 (lisp -> LPAREN DIV lisp lisp RPAREN .)
+    LPAREN          reduce using rule 8 (lisp -> LPAREN DIV lisp lisp RPAREN .)
+    RPAREN          reduce using rule 8 (lisp -> LPAREN DIV lisp lisp RPAREN .)
+
+
+state 44
+
+    (11) varlist -> LPAREN VAR . lisp RPAREN
+    (12) varlist -> LPAREN VAR . lisp RPAREN varlist
+    (3) lisp -> . INT
+    (4) lisp -> . VAR
+    (5) lisp -> . LPAREN PLUS lisp lisp RPAREN
+    (6) lisp -> . LPAREN MINUS lisp lisp RPAREN
+    (7) lisp -> . LPAREN TIMES lisp lisp RPAREN
+    (8) lisp -> . LPAREN DIV lisp lisp RPAREN
+    (9) lisp -> . LPAREN CAR list RPAREN
+    (10) lisp -> . LPAREN LET LPAREN varlist RPAREN lisp RPAREN
+
+    INT             shift and go to state 4
+    VAR             shift and go to state 5
+    LPAREN          shift and go to state 9
+
+    lisp                           shift and go to state 47
+
+state 45
+
+    (10) lisp -> LPAREN LET LPAREN varlist RPAREN . lisp RPAREN
+    (3) lisp -> . INT
+    (4) lisp -> . VAR
+    (5) lisp -> . LPAREN PLUS lisp lisp RPAREN
+    (6) lisp -> . LPAREN MINUS lisp lisp RPAREN
+    (7) lisp -> . LPAREN TIMES lisp lisp RPAREN
+    (8) lisp -> . LPAREN DIV lisp lisp RPAREN
+    (9) lisp -> . LPAREN CAR list RPAREN
+    (10) lisp -> . LPAREN LET LPAREN varlist RPAREN lisp RPAREN
+
+    INT             shift and go to state 4
+    VAR             shift and go to state 5
+    LPAREN          shift and go to state 9
+
+    lisp                           shift and go to state 48
+
+state 46
+
+    (15) list -> LPAREN CONS lisp list RPAREN .
+
+    SEMI            reduce using rule 15 (list -> LPAREN CONS lisp list RPAREN .)
+    RPAREN          reduce using rule 15 (list -> LPAREN CONS lisp list RPAREN .)
+
+
+state 47
+
+    (11) varlist -> LPAREN VAR lisp . RPAREN
+    (12) varlist -> LPAREN VAR lisp . RPAREN varlist
+
+    RPAREN          shift and go to state 49
+
+
+state 48
+
+    (10) lisp -> LPAREN LET LPAREN varlist RPAREN lisp . RPAREN
+
+    RPAREN          shift and go to state 50
+
+
+state 49
+
+    (11) varlist -> LPAREN VAR lisp RPAREN .
+    (12) varlist -> LPAREN VAR lisp RPAREN . varlist
+    (11) varlist -> . LPAREN VAR lisp RPAREN
+    (12) varlist -> . LPAREN VAR lisp RPAREN varlist
+
+    RPAREN          reduce using rule 11 (varlist -> LPAREN VAR lisp RPAREN .)
+    LPAREN          shift and go to state 36
+
+    varlist                        shift and go to state 51
+
+state 50
+
+    (10) lisp -> LPAREN LET LPAREN varlist RPAREN lisp RPAREN .
+
+    SEMI            reduce using rule 10 (lisp -> LPAREN LET LPAREN varlist RPAREN lisp RPAREN .)
+    INT             reduce using rule 10 (lisp -> LPAREN LET LPAREN varlist RPAREN lisp RPAREN .)
+    VAR             reduce using rule 10 (lisp -> LPAREN LET LPAREN varlist RPAREN lisp RPAREN .)
+    LPAREN          reduce using rule 10 (lisp -> LPAREN LET LPAREN varlist RPAREN lisp RPAREN .)
+    RPAREN          reduce using rule 10 (lisp -> LPAREN LET LPAREN varlist RPAREN lisp RPAREN .)
+
+
+state 51
+
+    (12) varlist -> LPAREN VAR lisp RPAREN varlist .
+
+    RPAREN          reduce using rule 12 (varlist -> LPAREN VAR lisp RPAREN varlist .)
+
